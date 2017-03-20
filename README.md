@@ -1,1 +1,1 @@
-##djangular-boilerplate
+djangular-boilerplate
