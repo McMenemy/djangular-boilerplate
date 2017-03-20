@@ -10,7 +10,7 @@
   "author": "Tim Butler",
   "homepage": "https://github.com/TrackMaven/getting-started-with-drf-angular/blob/master/README.md",
   "dependencies": {
-    "express": "^4.13.4",
-    "bower": "1.7.9"
+    "bower": "1.7.9",
+    "express": "^4.13.4"
   }
 }

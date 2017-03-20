@@ -1,6 +1,15 @@
 from rest_framework import serializers
-from retail.models import Chain, Store, Employee
+from retail.models import Sequence, Chain, Store, Employee
 
+class SequenceSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Sequence
+		fields = ('design', 'description')
+
+class DetailedSequenceSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Sequence
+		fields = ('design', 'description', 'formatted_sequence')
 
 class ChainSerializer(serializers.ModelSerializer):
     """ Serializer to represent the Chain model """

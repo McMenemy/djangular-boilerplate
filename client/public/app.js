@@ -1,11 +1,12 @@
 'use strict';
 
 var retail = angular.module("retail", [
-        'ngResource'
+        'ngResource',
     ]);
 
 angular
     .module('SampleApplication', [
         'appRoutes',
-        'retail'
+        'retail',
+        'ui.bootstrap'
     ]);

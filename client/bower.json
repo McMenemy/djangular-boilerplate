@@ -3,7 +3,7 @@
   "description": "A sample Angular application serving a Django backend as a separate service",
   "main": "server.js",
   "authors": [
-    "Tim Butler"
+    "Josh McMenemy"
   ],
   "license": "ISC",
   "homepage": "",
@@ -15,7 +15,9 @@
   "dependencies": {
     "angular": "^1.5.7",
     "angular-ui-router": "^0.3.1",
-    "angular-resource": "~1.4.8"
+    "angular-resource": "~1.4.8",
+		"bootstrap": "*",
+		"angular-bootstrap": "*"
   },
   "resolutions": {
     "angular": "^1.5.7"

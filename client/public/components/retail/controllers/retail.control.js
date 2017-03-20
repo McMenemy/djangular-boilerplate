@@ -1,5 +1,8 @@
 retail
-    .controller('RetailController', function($scope, Chain, Store, Employee) {
+    .controller('RetailController', function($scope, Sequence, Chain, Store, Employee) {
+        Sequence.query().$promise.then(function(data) {
+          $scope.sequences = data;
+        });
         Chain.query().$promise.then(function(data) {
             $scope.chains = data;
         });

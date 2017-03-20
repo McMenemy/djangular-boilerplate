@@ -1,4 +1,17 @@
 <div ng-controller="RetailController">
+    <button type="button" class="btn btn-primary" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        Single Toggle
+    </button>
+		Sequences
+		<div ng-repeat="sequence in sequences">
+        <div style="margin-left: 20px;">
+            design: {{ sequence.design }} <br/>
+            description: {{ sequence.description }} <br/>
+            <hr/>
+        </div>
+    </div>
+    <br/>
+
     Chains
     <div ng-repeat="chain in chains">
         <div style="margin-left: 20px;">
