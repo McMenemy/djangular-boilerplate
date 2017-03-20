@@ -14,7 +14,6 @@ def make_error_message(i, char, condition):
 def validate_sequence_design(seq_design):
 	i = 0
 	while i < len(seq_design):
-		print(i)
 		modifier = seq_design[i]
 		base = seq_design[i+1]
 		sugar = seq_design[i+2]
@@ -37,10 +36,12 @@ def validate_sequence_design(seq_design):
 
 class Sequence(models.Model):
 	design = models.TextField(validators=[validate_sequence_design])
+	name = models.CharField(max_length=50)
+	owner = models.CharField(max_length=25)
 	description = models.CharField(max_length=1000, blank=True)
 
 	@property
-	def formatted_sequence(self):
+	def formatted(self):
 		i = 0
 		formatted_seq = ''
 		state = 'r' # start out in RNA state so opening bracket is added if needed

@@ -1,27 +1,120 @@
 <!DOCTYPE html>
 <html ng-app="Synthego">
-    <head>
-        <meta charset="utf-8">
-        <title>Synthego</title>
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-				<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-				<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-       	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script> 
-				<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-				<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-				<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-				<script src="app.js"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
-    </head>
-    <body ng-controller="SynthegoController">
-		Sequences
-		<div ng-repeat="sequence in sequences">
-        <div style="margin-left: 20px;" ng-click="clickSequence(sequence.id)">
-            design: {{ sequence.design }} <br/>
-            description: {{ sequence.description }} <br/>
-            <hr/>
-        </div>
-    </div>
-    <br/>
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <title>Synthego</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+		<link rel="stylesheet" href="app.css"></link>
+
+		<!-- Angular Material requires Angular.js Libraries -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+		<!-- Angular Material Library -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+		<script src="app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+  </head>
+  <body ng-controller="SynthegoController">
+
+		<md-toolbar class="md-theme-light">
+			<h2 class="md-toolbar-tools">
+				<span>Synthego Seq</span>
+			</h2>
+		</md-toolbar>
+
+		<md-content class="md-padding" layout-xs="column" layout="row">
+			<md-card class="main-container">
+				<md-list>
+					<md-list-item layout="column" layout-align="right right" style="padding: 15px; margin-top: -70px;">
+						<div ng-if="addStatus" id="status">
+							<b layout="row" layout-align="center center" class="md-padding">
+								{{addStatus}}
+							</b>
+						</div>
+
+						<md-input-container>
+							<label>Name</label>
+							<input ng-model="newSeq.name">
+						</md-input-container>
+
+						<md-input-container>
+							<label>Owner</label>
+							<input ng-model="newSeq.owner">
+						</md-input-container>
+
+						<md-input-container class="md-block">
+							<label>Description</label>
+							<textarea ng-model="newSeq.description" md-maxlength="500" rows="2" md-select-on-focus></textarea>
+						</md-input-container>
+
+						<md-input-container class="md-block">
+							<label>Design</label>
+							<textarea ng-model="newSeq.design" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
+						</md-input-container>
+
+						<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+							<md-button ng-click="clearForm()">Cancel</md-button>
+							<md-button class="md-raised md-primary" ng-click="addSequence()">Submit</md-button>
+						</section>
+
+						<md-divider></md-divider>
+					</md-list-item>
+					<md-list-item class="md-3-line" ng-repeat="sequence in sequences">
+						<div class="md-list-item-text">
+							<h3>name: {{sequence.name}}</h3>
+							<h4>owner: {{sequence.owner}}</h4>
+							<p>description: {{sequence.description}}</p>
+						</div>
+						<md-button class="md-secondary" ng-click="clickSequence($event, sequence.id, $index)">More</md-button>
+						<md-divider ng-if="!$last"></md-divider>
+					</md-list-item>
+				</md-list>
+			</md-card>
+		</md-content>
+	
+		<div style="visibility: hidden">
+			<div class="md-dialog-container" id="modal">
+				  
+				<md-dialog aria-label="Detailed Sequence" style="padding: 15px; width: 90%; max-width: 960px;">
+					<div ng-if="status" id="status">
+						<b layout="row" layout-align="center center" class="md-padding">
+							{{status}}
+						</b>
+					</div>
+
+					<md-input-container>
+						<label>Name</label>
+						<input ng-model="selectedSeq.name">
+					</md-input-container>
+
+					<md-input-container>
+						<label>Owner</label>
+						<input ng-model="selectedSeq.owner">
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<label>Description</label>
+						<textarea ng-model="selectedSeq.description" md-maxlength="500" rows="2" md-select-on-focus></textarea>
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<label>Design</label>
+						<textarea ng-model="selectedSeq.design" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
+					</md-input-container>
+
+					<p>Formatted View: {{selectedSeq.formatted}}</p>
+					<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+						<md-button ng-click="hideModal()">Cancel</md-button>
+						<md-button class="md-raised md-primary" ng-click="updateSequence(selectedSeq.id)">Submit</md-button>
+					</section>
+				</md-dialog>
+			</div>
+		</div>
+
+  </body>
 </html>
