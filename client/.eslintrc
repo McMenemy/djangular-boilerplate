@@ -1,0 +1,12 @@
+{
+  "extends": "eslint-config-airbnb-es5",
+  "rules": {
+    "func-names": "off",
+    "new-cap": "off",
+    "no-console": "off",
+    "consistent-return": "off"
+  },
+	globals: {
+		"angular": true
+	}
+}

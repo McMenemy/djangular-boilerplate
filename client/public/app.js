@@ -1,12 +1,13 @@
-'use strict';
+angular.module('Synthego', ['ngMaterial'])
 
-var retail = angular.module("retail", [
-        'ngResource',
-    ]);
+  .controller('SynthegoController', function ($scope, $http) {
+    $http.get('http://localhost:8000/sequences/')
+      .success(function (data) {
+        $scope.sequences = data;
+      }
+    );
 
-angular
-    .module('SampleApplication', [
-        'appRoutes',
-        'retail',
-        'ui.bootstrap'
-    ]);
+    $scope.clickSequence = function (id) {
+      console.log(id);
+    };
+  });
